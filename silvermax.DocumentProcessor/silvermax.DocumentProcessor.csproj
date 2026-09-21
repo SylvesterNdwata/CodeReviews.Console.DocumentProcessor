@@ -24,6 +24,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.12" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.12" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="10.0.12" />
+    <PackageReference Include="QuestPDF" Version="2026.9.0" />
     <PackageReference Include="Spectre.Console" Version="0.57.2" />
   </ItemGroup>
 
@@ -32,13 +33,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\..\..\OneDrive\Documents\Contacts.xlsx" Link="Documents\Contacts.xlsx">
+    <None Include="Documents\Contacts.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
-
-	<ItemGroup>
+  <ItemGroup>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
