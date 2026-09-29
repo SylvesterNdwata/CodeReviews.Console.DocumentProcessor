@@ -18,20 +18,21 @@ public class Program
             {
                 services.AddDbContext<ContactDbContext>(opts =>
                     opts.UseSqlServer(context.Configuration.GetConnectionString("DefaultConnection")));
-                services.AddTransient<IImportService, ExcelImportService>();
+                services.AddKeyedTransient<IImportService, ExcelImportService>("Excel");
+                services.AddKeyedTransient<IImportService, CsvImportService>("CSV");
                 services.AddTransient<ISeedDatabaseService, SeedDatabaseService>();
                 services.AddTransient<IExportPDFService, ExportPDFService>();
+                services.AddTransient<IExportCSVService, ExportCSVService>();
             })
             .Build();
 
         using var scope = host.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<ContactDbContext>();
-        var importService = scope.ServiceProvider.GetRequiredService<IImportService>();
+        var seedService = scope.ServiceProvider.GetRequiredService<ISeedDatabaseService>();
         var exportService = scope.ServiceProvider.GetRequiredService<IExportPDFService>();
+        var exportCsvService = scope.ServiceProvider.GetRequiredService<IExportCSVService>();
 
-        var seedService = new SeedDatabaseService(importService, db);
-
-        UserInterface ui = new(seedService, exportService, db);
+        UserInterface ui = new(seedService, exportService, exportCsvService, db);
         await ui.Start();
     }
 }

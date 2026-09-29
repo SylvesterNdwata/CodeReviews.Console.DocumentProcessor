@@ -7,7 +7,11 @@ using Spectre.Console;
 
 namespace silvermax.DocumentProcessor;
 
-public class UserInterface(ISeedDatabaseService seedService, IExportPDFService exportService, ContactDbContext db)
+public class UserInterface(
+    ISeedDatabaseService seedService,
+    IExportPDFService exportService,
+    IExportCSVService exportCSVService,
+    ContactDbContext db)
 {
 
     public async Task Start()
@@ -19,6 +23,8 @@ public class UserInterface(ISeedDatabaseService seedService, IExportPDFService e
         await PrintContacts();
 
         await exportService.ExportContactPDFReport();
+
+        await exportCSVService.ExportContactCSVReport();
 
     }
 

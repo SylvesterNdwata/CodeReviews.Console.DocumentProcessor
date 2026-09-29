@@ -27,7 +27,7 @@ public class ExportPDFService(ContactDbContext db) : IExportPDFService
         }
         catch (IOException ex)
         {
-            throw new IOException("Could not write ContactReport.pdf.");
+            throw new IOException("Could not write ContactReport.pdf.", ex);
         }
         
     }
