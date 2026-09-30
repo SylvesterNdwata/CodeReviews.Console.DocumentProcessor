@@ -2,5 +2,5 @@
 
 public interface IExportCSVService
 {
-    Task ExportContactCSVReport();
+    Task <string?> ExportContactCSVReport();
 }

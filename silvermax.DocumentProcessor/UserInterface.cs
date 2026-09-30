@@ -11,6 +11,7 @@ public class UserInterface(
     ISeedDatabaseService seedService,
     IExportPDFService exportService,
     IExportCSVService exportCSVService,
+    IBlobStorageService blobStorageService,
     ContactDbContext db)
 {
 
@@ -22,10 +23,11 @@ public class UserInterface(
 
         await PrintContacts();
 
-        await exportService.ExportContactPDFReport();
+        var pdfPath = await exportService.ExportContactPDFReport();
+        var csvPath = await exportCSVService.ExportContactCSVReport();
 
-        await exportCSVService.ExportContactCSVReport();
-
+        if (pdfPath is not null) await blobStorageService.UploadFileAsync(pdfPath, "ContactReport.pdf");
+        if (csvPath is not null) await blobStorageService.UploadFileAsync(csvPath, "ContactReport.csv");
     }
 
     private async Task PrintContacts()

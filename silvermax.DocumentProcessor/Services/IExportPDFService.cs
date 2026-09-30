@@ -2,5 +2,5 @@
 
 public interface IExportPDFService
 {
-    Task ExportContactPDFReport();
+    Task<string?> ExportContactPDFReport();
 }

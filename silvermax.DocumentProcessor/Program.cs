@@ -23,6 +23,7 @@ public class Program
                 services.AddTransient<ISeedDatabaseService, SeedDatabaseService>();
                 services.AddTransient<IExportPDFService, ExportPDFService>();
                 services.AddTransient<IExportCSVService, ExportCSVService>();
+                services.AddSingleton<IBlobStorageService, BlobStorageService>();
             })
             .Build();
 
@@ -31,8 +32,9 @@ public class Program
         var seedService = scope.ServiceProvider.GetRequiredService<ISeedDatabaseService>();
         var exportService = scope.ServiceProvider.GetRequiredService<IExportPDFService>();
         var exportCsvService = scope.ServiceProvider.GetRequiredService<IExportCSVService>();
+        var blobStorageService = scope.ServiceProvider.GetRequiredService<IBlobStorageService>();
 
-        UserInterface ui = new(seedService, exportService, exportCsvService, db);
+        UserInterface ui = new(seedService, exportService, exportCsvService, blobStorageService, db);
         await ui.Start();
     }
 }

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "silvermax.DocumentProcessor": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
